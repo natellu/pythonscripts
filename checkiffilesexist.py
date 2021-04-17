@@ -5,11 +5,17 @@ def main():
     pathtoflacs = r"C:\Users\natellu\Music\flacs"
     
     mp3subfolders, mp3sfiles = run_fast_scandir(pathtomp3s, [".mp3"])
-    flacsubfolders, flacfiles = run_fast_scandir(pathtoflacs, [".flac"])
+    
     
     for f in mp3sfiles:
-        root_ext = os.path.splitext(f)
-        print(root_ext[0])
+
+        test = os.path.relpath(f, pathtomp3s)
+        root_ext = os.path.splitext(test)
+        test2 = os.path.join(pathtoflacs, root_ext[0]+ ".flac")
+
+        if os.path.exists(test2):
+            print("deleting " + f + " ...")
+            os.remove(f) 
         
 def run_fast_scandir(dir, ext):    # dir: str, ext: list
     subfolders, files = [], []
