@@ -19,7 +19,10 @@ if __name__ == "__main__":
     print(mp3folder)
     print(flacfile)
     if not os.path.exists(mp3folder):
-        os.mkdir(mp3folder)
+        try:
+            os.makedirs(mp3folder)
+        except:
+            print()
 
     mp3fileandfolder = os.path.join(mp3, flacfile + ".mp3")
 

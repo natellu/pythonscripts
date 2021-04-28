@@ -9,7 +9,7 @@ from watchdog.events import FileSystemEventHandler
 
 WatchingExtensionsList = [".flac"]
 watchingfolder = "./flacs/"
-outputfolder = "./mp3"
+outputfolder = "./mp3/"
 
 
 class Handler(FileSystemEventHandler):
