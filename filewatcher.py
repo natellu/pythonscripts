@@ -5,16 +5,17 @@ import logging
 from watchdog.observers import Observer
 from watchdog.events import LoggingEventHandler
 from watchdog.events import FileSystemEventHandler
-from ffmpy import FFmpeg
+
 
 WatchingExtensionsList = [".flac"]
-watchingfolder = "C:\\Users\\natellu\\Documents\\programmierung\\pythonscripts\\flacs\\"
-outputfolder = "C:\\Users\\natellu\\Documents\\programmierung\\pythonscripts\\mp3\\"
+watchingfolder = "./flacs/"
+outputfolder = "./mp3"
+
 
 class Handler(FileSystemEventHandler):
     def on_created(self, event):
         print(f'event: {event}')
-       
+
         if event.is_directory:
             print("is directory")
             return
@@ -31,12 +32,9 @@ class Handler(FileSystemEventHandler):
 
         print("done copying")
 
-        ff = FFmpeg(
-            inputs={event.src_path: None},
-            outputs={'folder\\output.mp3': "-c:a libmp3lame -b:a 320k"}
-        )
-       
-        ff.run()
+        os.system(
+            f'python convertflactomp3.py \"{event.src_path}\" \"{watchingfolder}\" \"{outputfolder}\"')
+
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO,
